@@ -379,7 +379,7 @@ namespace Microsoft.EntityFrameworkCore.Query
             using (var context = CreateContext())
             {
                 Assert.Equal(
-                    CoreStrings.TranslationFailed(@"Last<Customer>(Select<Customer, Customer>(    source: DbSet<Customer>,     selector: (c) => IncludeExpression(        c,         MaterializeCollectionNavigation(Navigation: Customer.Orders (<Orders>k__BackingField, List<Order>) Collection ToDependent Order Inverse: Customer PropertyAccessMode.Field, Where<Order>(            source: DbSet<Order>,             predicate: (o) => Property<string>(c, ""CustomerID"") == Property<string>(o, ""CustomerID""))), Orders)))"),
+                    CoreStrings.TranslationFailed("Last<Customer>(Select<Customer, Customer>(    source: DbSet<Customer>,     selector: (c) => IncludeExpression(        c,         MaterializeCollectionNavigation(Navigation: Customer.Orders (<Orders>k__BackingField, List<Order>) Collection ToDependent Order Inverse: Customer PropertyAccessMode.Field, Where<Order>(            source: DbSet<Order>,             predicate: (o) => Property<string>(c, \"CustomerID\") != null && Property<string>(c, \"CustomerID\") == Property<string>(o, \"CustomerID\"))), Orders)))"),
                     RemoveNewLines(Assert.Throws<InvalidOperationException>(
                         () => useString
                             ? context.Set<Customer>().Include("Orders").Last()
