@@ -19,5 +19,11 @@ namespace Microsoft.EntityFrameworkCore.Query
         {
             return Task.CompletedTask;
         }
+
+        [ConditionalTheory(Skip = "Issue #17230")]
+        public override Task Project_collection_navigation_nested_with_take(bool isAsync)
+        {
+            return Task.CompletedTask;
+        }
     }
 }

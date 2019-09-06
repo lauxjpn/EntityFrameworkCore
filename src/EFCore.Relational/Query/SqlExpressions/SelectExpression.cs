@@ -959,6 +959,18 @@ namespace Microsoft.EntityFrameworkCore.Query.SqlExpressions
 
                     return combineNonNullExpressions(leftJoinKey, rightJoinKey);
                 }
+
+                // ignore null check
+                if (sqlBinaryExpression.OperatorType == ExpressionType.NotEqual
+                    && sqlBinaryExpression.Left is ColumnExpression leftColumn
+                    && ContainsTableReference(leftColumn.Table)
+                    && sqlBinaryExpression.Right is SqlConstantExpression sqlConstantExpression
+                    && sqlConstantExpression.Value == null)
+                {
+                    updatedPredicate = null;
+
+                    return null;
+                }
             }
 
             updatedPredicate = predicate;
